@@ -17,6 +17,11 @@ CaracterDaCobra: var #1	; Guarda o caracter da cobra com a cor
 CaracterDaMaca: var #1	; Guarda o caracter da maca com a cor
 MapaDoJogo: var #1200	; Guarda o mapa do jogo com a cobra
 VetorRandom: var #1064	; Guarda valores random de onde a maca pode aparecer
+
+Tecla2: var #2
+PosicaoCabeca2: var #2	; Guarda posicao atual da cabeca
+PosicaoRabo2: var #2		; Guarda posicao atual do rabo
+CaracterDaCobra2: var #2	; Guarda o caracter da cobra com a cor
 static VetorRandom + #0, #41
 static VetorRandom + #1, #467
 static VetorRandom + #2, #334
@@ -1136,7 +1141,7 @@ ImprimeTelaAgradecimento:
 ImprimeTela:
 	; Nao precisa guardar contexto, pois nao tem o que ser guardado ainda
 	; r0 e r1 contem respectivamente endereco da posicao 0 da tela e cor da impressao
-	loadn r2, #0		; Posicao inial da tela para imprimir
+	loadn r2, #0		; Posicao inicial da tela para imprimir
 	loadn r3, #40		; Valor pra mudar de linha na tela
 	loadn r4, #41		; Valor pra mudar de linha na memoria
 	loadn r5, #1200		; Valor de parada
@@ -1199,6 +1204,9 @@ CarregaJogo:
 	load r0, PosicaoCabeca
 	load r1, PosicaoRabo
 	load r2, Tecla
+	load r3, PosicaoCabeca2
+	load r4, PosicaoRabo2
+	load r5, Tecla2
 	
 	rts 	; retorno da funcao CarregaJogo
 	
@@ -1209,12 +1217,20 @@ IniciaVariaveis:
 	loadn r0, #'d'
 	store Tecla, r0				; Comeca na direcao para Direita
 	
+	loadn r0, #'d'
+	store Tecla2, r0				; Comeca na direcao para Direita
+	
 	loadn r0, #'o'
-	loadn r1, #512
+	loadn r1, #3328
 	add r0, r1, r0				; Adiciona cor ao caracter da cobra
 	store CaracterDaCobra, r0	; Armazena o caracter da cobra
 	
-	loadn r0, #'x'
+	loadn r0, #'o'
+	loadn r1, #3072
+	add r0, r1, r0				; Adiciona cor ao caracter da cobra
+	store CaracterDaCobra2, r0	; Armazena o caracter da cobra
+	
+	loadn r0, #'c'
 	loadn r1, #2304
 	add r0, r1, r0				; Adiciona cor ao caracter da cobra
 	store CaracterDaMaca, r0	; Armazena o caracter da maca
@@ -1231,6 +1247,38 @@ IniciaVariaveis:
 	loadn r1, #567				; Rabo comeca na posicao 567 da tela
 	add r1, r3, r1				; r1 passa a guardar o valor de r3 deslocado em 567, posicao esta do rabo no mapa
 	store PosicaoRabo, r1		; Inicia variavel com a posicao da cauda
+	
+	loadn r4, #369				; Cabeca comeca na posicao 569 da tela
+	add r4, r3, r4				; r0 passa a guardar o valor de r3 deslocado em 569, posicao esta da cabeca no mapa
+	store PosicaoCabeca2, r4		; Inicia variavel com a posicao da cabeca
+	
+	loadn r5, #367				; Rabo comeca na posicao 567 da tela
+	add r5, r3, r5				; r1 passa a guardar o valor de r3 deslocado em 567, posicao esta do rabo no mapa
+	store PosicaoRabo2, r5		; Inicia variavel com a posicao da cauda
+	
+	loadn r4, #469				; Cabeca comeca na posicao 569 da tela
+	add r4, r3, r4				; r0 passa a guardar o valor de r3 deslocado em 569, posicao esta da cabeca no mapa
+	store PosicaoCabeca2, r4		; Inicia variavel com a posicao da cabeca
+	
+	loadn r5, #467				; Rabo comeca na posicao 567 da tela
+	add r5, r3, r5				; r1 passa a guardar o valor de r3 deslocado em 567, posicao esta do rabo no mapa
+	store PosicaoRabo2, r5		; Inicia variavel com a posicao da cauda
+	
+	loadn r4, #769				; Cabeca comeca na posicao 569 da tela
+	add r4, r3, r4				; r0 passa a guardar o valor de r3 deslocado em 569, posicao esta da cabeca no mapa
+	store PosicaoCabeca2, r4		; Inicia variavel com a posicao da cabeca
+	
+	loadn r5, #767				; Rabo comeca na posicao 567 da tela
+	add r5, r3, r5				; r1 passa a guardar o valor de r3 deslocado em 567, posicao esta do rabo no mapa
+	store PosicaoRabo2, r5		; Inicia variavel com a posicao da cauda
+	
+	loadn r4, #869				; Cabeca comeca na posicao 569 da tela
+	add r4, r3, r4				; r0 passa a guardar o valor de r3 deslocado em 569, posicao esta da cabeca no mapa
+	store PosicaoCabeca2, r4		; Inicia variavel com a posicao da cabeca
+	
+	loadn r5, #867				; Rabo comeca na posicao 567 da tela
+	add r5, r3, r5				; r1 passa a guardar o valor de r3 deslocado em 567, posicao esta do rabo no mapa
+	store PosicaoRabo2, r5		; Inicia variavel com a posicao da cauda
 	
 	rts
 	
@@ -1266,7 +1314,7 @@ IniciaMapa:
 	load r0, CaracterDaCobra	; Carrega o caracter da cobra com a cor a ser impressa
 	loadn r1, #567				; Posicao do rabo
 	loadn r2, #MapaDoJogo		; Carrega posicao inicial do mapa
-	loadn r3, #'l'				; Direcao que a cobra comeca
+	loadn r3, #'d'				; Direcao que a cobra comeca
 	add r2, r1, r2				; Desloca posicao inicial do mapa para o rabo
 	
 	outchar r0, r1				; Imprime rabo na posicao 567
@@ -1281,6 +1329,84 @@ IniciaMapa:
 	
 	outchar r0, r1				; imprime cabeca na posicao 569
 	storei r2, r3				; Guarda na posicao 569 do mapa que a cobra segue para Direita
+	
+	
+	
+	load r0, CaracterDaCobra2	; Carrega o caracter da cobra com a cor a ser impressa
+	loadn r1, #467				; Posicao do rabo
+	loadn r2, #MapaDoJogo		; Carrega posicao inicial do mapa
+	loadn r3, #'d'				; Direcao que a cobra comeca
+	add r2, r1, r2				; Desloca posicao inicial do mapa para o rabo
+	
+	outchar r0, r1				; Imprime rabo na posicao 367
+	storei r2, r3				; Guarda na posicao 367 do mapa que a cobra segue para Direita
+	inc r1
+	inc r2
+	
+	outchar r0, r1				; Imprime corpo na posicao 368
+	storei r2, r3				; Guarda na posicao 368 do mapa que a cobra segue para Direita
+	inc r1
+	inc r2
+	
+	outchar r0, r1				; imprime cabeca na posicao 369
+	storei r2, r3				; Guarda na posicao 369 do mapa que a cobra segue para Direita
+	
+	load r0, CaracterDaCobra2	; Carrega o caracter da cobra com a cor a ser impressa
+	loadn r1, #867				; Posicao do rabo
+	loadn r2, #MapaDoJogo		; Carrega posicao inicial do mapa
+	loadn r3, #'d'				; Direcao que a cobra comeca
+	add r2, r1, r2				; Desloca posicao inicial do mapa para o rabo
+	
+	outchar r0, r1				; Imprime rabo na posicao 367
+	storei r2, r3				; Guarda na posicao 367 do mapa que a cobra segue para Direita
+	inc r1
+	inc r2
+	
+	outchar r0, r1				; Imprime corpo na posicao 368
+	storei r2, r3				; Guarda na posicao 368 do mapa que a cobra segue para Direita
+	inc r1
+	inc r2
+	
+	outchar r0, r1				; imprime cabeca na posicao 369
+	storei r2, r3				; Guarda na posicao 369 do mapa que a cobra segue para Direita
+	
+	load r0, CaracterDaCobra2	; Carrega o caracter da cobra com a cor a ser impressa
+	loadn r1, #767				; Posicao do rabo
+	loadn r2, #MapaDoJogo		; Carrega posicao inicial do mapa
+	loadn r3, #'d'				; Direcao que a cobra comeca
+	add r2, r1, r2				; Desloca posicao inicial do mapa para o rabo
+	
+	outchar r0, r1				; Imprime rabo na posicao 367
+	storei r2, r3				; Guarda na posicao 367 do mapa que a cobra segue para Direita
+	inc r1
+	inc r2
+	
+	outchar r0, r1				; Imprime corpo na posicao 368
+	storei r2, r3				; Guarda na posicao 368 do mapa que a cobra segue para Direita
+	inc r1
+	inc r2
+	
+	outchar r0, r1				; imprime cabeca na posicao 369
+	storei r2, r3				; Guarda na posicao 369 do mapa que a cobra segue para Direita
+	
+	load r0, CaracterDaCobra2	; Carrega o caracter da cobra com a cor a ser impressa
+	loadn r1, #367				; Posicao do rabo
+	loadn r2, #MapaDoJogo		; Carrega posicao inicial do mapa
+	loadn r3, #'d'				; Direcao que a cobra comeca
+	add r2, r1, r2				; Desloca posicao inicial do mapa para o rabo
+	
+	outchar r0, r1				; Imprime rabo na posicao 367
+	storei r2, r3				; Guarda na posicao 367 do mapa que a cobra segue para Direita
+	inc r1
+	inc r2
+	
+	outchar r0, r1				; Imprime corpo na posicao 368
+	storei r2, r3				; Guarda na posicao 368 do mapa que a cobra segue para Direita
+	inc r1
+	inc r2
+	
+	outchar r0, r1				; imprime cabeca na posicao 369
+	storei r2, r3				; Guarda na posicao 369 do mapa que a cobra segue para Direita
 	
 	pop r4
 	pop r3
@@ -1683,29 +1809,29 @@ BuscaCaracter:
 	
 TelaApresentacao00: string "                                        "
 TelaApresentacao01: string "                                        "
-TelaApresentacao02: string "       ESTE EH UM JOGO FEITO POR:       "
+TelaApresentacao02: string "                                        "
 TelaApresentacao03: string "                                        "
-TelaApresentacao04: string "         ORLANDO PASQUAL FILHO          "
+TelaApresentacao04: string "                                        "
 TelaApresentacao05: string "                                        "
 TelaApresentacao06: string "                                        "
-TelaApresentacao07: string "           PARA A MATERIA DE            "
-TelaApresentacao08: string "      ORGANIZACAO DE COMPUTADORES       "
-TelaApresentacao09: string "       MINISTRADA PELO PROFESSOR        "
+TelaApresentacao07: string "                                        "
+TelaApresentacao08: string "                                        "
+TelaApresentacao09: string "                                        "
 TelaApresentacao10: string "                                        "
-TelaApresentacao11: string "       DR. EDUARDO VALLE SIMOES         "
+TelaApresentacao11: string "                                        "
 TelaApresentacao12: string "                                        "
 TelaApresentacao13: string "                                        "
 TelaApresentacao14: string "      ESTE JOGO E O CLASSICO SNAKE      "
 TelaApresentacao15: string "                                        "
-TelaApresentacao16: string "    OS COMANDO BASICOS DO JOGO SAO:     "
+TelaApresentacao16: string "        OS COMANDO DO JOGO SAO:         "
 TelaApresentacao17: string "                                        "
-TelaApresentacao18: string "        I  - MOVE PARA CIMA             "
-TelaApresentacao19: string "        K  - MOVE PARA BAIXO            "
-TelaApresentacao20: string "        J  - MOVE PARA ESQUERDA         "
-TelaApresentacao21: string "        L  - MOVE PARA DIREITA          "
+TelaApresentacao18: string "        W  - MOVE PARA CIMA             "
+TelaApresentacao19: string "        A  - MOVE PARA BAIXO            "
+TelaApresentacao20: string "        S  - MOVE PARA ESQUERDA         "
+TelaApresentacao21: string "        D  - MOVE PARA DIREITA          "
 TelaApresentacao22: string "                                        "
 TelaApresentacao23: string "                                        "
-TelaApresentacao24: string "            ESPERO QUE GOSTE            "
+TelaApresentacao24: string "                                        "
 TelaApresentacao25: string "                                        "
 TelaApresentacao26: string "               BOM JOGO!                "
 TelaApresentacao27: string "                                        "
@@ -1713,36 +1839,36 @@ TelaApresentacao28: string "  PRECIONE QUALQUER TECLA PARA COMECAR  "
 TelaApresentacao29: string "                                        "
 
 
-TelaInicial00: string "|______________________________________|"
-TelaInicial01: string "|                                      |"
-TelaInicial02: string "|                                      |"
-TelaInicial03: string "|                                      |"
-TelaInicial04: string "|                                      |"
-TelaInicial05: string "|                                      |"
-TelaInicial06: string "|                                      |"
-TelaInicial07: string "|                                      |"
-TelaInicial08: string "|                                      |"
-TelaInicial09: string "|                                      |"
-TelaInicial10: string "|                                      |"
-TelaInicial11: string "|                                      |"
-TelaInicial12: string "|                                      |"
-TelaInicial13: string "|                                      |"
-TelaInicial14: string "|                                      |"
-TelaInicial15: string "|                                      |"
-TelaInicial16: string "|                                      |"
-TelaInicial17: string "|                                      |"
-TelaInicial18: string "|                                      |"
-TelaInicial19: string "|                                      |"
-TelaInicial20: string "|                                      |"
-TelaInicial21: string "|                                      |"
-TelaInicial22: string "|                                      |"
-TelaInicial23: string "|                                      |"
-TelaInicial24: string "|                                      |"
-TelaInicial25: string "|                                      |"
-TelaInicial26: string "|                                      |"
-TelaInicial27: string "|                                      |"
-TelaInicial28: string "|                                      |"
-TelaInicial29: string "|TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT|"
+TelaInicial00: string "########################################"
+TelaInicial01: string "#                                      #"
+TelaInicial02: string "#                                      #"
+TelaInicial03: string "#                                      #"
+TelaInicial04: string "#                                      #"
+TelaInicial05: string "#                                      #"
+TelaInicial06: string "#                                      #"
+TelaInicial07: string "#                                      #"
+TelaInicial08: string "#                                      #"
+TelaInicial09: string "#                                      #"
+TelaInicial10: string "#                                      #"
+TelaInicial11: string "#                                      #"
+TelaInicial12: string "#                                      #"
+TelaInicial13: string "#                                      #"
+TelaInicial14: string "#                                      #"
+TelaInicial15: string "#                                      #"
+TelaInicial16: string "#                                      #"
+TelaInicial17: string "#                                      #"
+TelaInicial18: string "#                                      #"
+TelaInicial19: string "#                                      #"
+TelaInicial20: string "#                                      #"
+TelaInicial21: string "#                                      #"
+TelaInicial22: string "#                                      #"
+TelaInicial23: string "#                                      #"
+TelaInicial24: string "#                                      #"
+TelaInicial25: string "#                                      #"
+TelaInicial26: string "#                                      #"
+TelaInicial27: string "#                                      #"
+TelaInicial28: string "#                                      #"
+TelaInicial29: string "########################################"
 
 
 TelaPosColisao00: string "                                        "
