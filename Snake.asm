@@ -1465,7 +1465,7 @@ LeTeclado:
 			LeTeclado_Mov_Opost_case_I:	; Switch Case, verificando se o movimento e valido para I
 				loadn r5, #'w'
 				cmp r4, r5			; r4 guarda o movimento atual
-				jne LeTeclado_Mov_Opost_case_K
+				jne LeTeclado_Mov_Opost_case_S
 				
 				loadn r5, #'s'
 				cmp r2, r5			; r2 guarda o ultimo movimento
@@ -1475,10 +1475,10 @@ LeTeclado:
 				load r2, Tecla		; Atualiza ultimo movimento
 				jmp MovimentoValido
 			
-			LeTeclado_Mov_Opost_case_K:	; Switch Case, verificando se o movimento e valido para K
+			LeTeclado_Mov_Opost_case_S:	; Switch Case, verificando se o movimento e valido para K
 				loadn r5, #'s'
 				cmp r4, r5			; r4 guarda o movimento atual
-				jne LeTeclado_Mov_Opost_case_J
+				jne LeTeclado_Mov_Opost_case_A
 				
 				loadn r5, #'w'
 				cmp r2, r5			; r2 guarda o ultimo movimento
@@ -1488,10 +1488,10 @@ LeTeclado:
 				load r2, Tecla		; Atualiza ultimo movimento
 				jmp MovimentoValido
 			
-			LeTeclado_Mov_Opost_case_J:	; Switch Case, verificando se o movimento e valido para J
+			LeTeclado_Mov_Opost_case_A:	; Switch Case, verificando se o movimento e valido para J
 				loadn r5, #'a'
 				cmp r4, r5			; r4 guarda o movimento atual
-				jne LeTeclado_Mov_Opost_case_L
+				jne LeTeclado_Mov_Opost_case_D
 				
 				loadn r5, #'d'
 				cmp r2, r5			; r2 guarda o ultimo movimento
@@ -1501,7 +1501,7 @@ LeTeclado:
 				load r2, Tecla		; Atualiza ultimo movimento
 				jmp MovimentoValido
 	
-			LeTeclado_Mov_Opost_case_L:
+			LeTeclado_Mov_Opost_case_D:
 				loadn r5, #'d'
 				cmp r4, r5			; r4 guarda o movimento atual
 				jne Penalisacao		; !!! Tecla precionada nao condiz com movimento !!!
@@ -1594,34 +1594,34 @@ MoveCobra:
 	; r7 contem a posicao da cabeca ou do rabo que sera atualizado
 	push r6	; Salva contexto: r6 e usado no switch case
 			
-	MoveCobra_case_I:
+	MoveCobra_case_W:
 		loadn r6, #'w'		; Movimento para cima
 		cmp r5, r6			; Checa se o movimento e para cima
-		jne MoveCobra_case_K
+		jne MoveCobra_case_S
 		
 		loadn r6, #40		; Para subir na tela, subtrai-se 40 na posicao
 		sub r7, r7, r6		; Guarda em r7 a nova posicao da cabeca
 		jmp MoveCobraFim
 		
-	MoveCobra_case_K:
+	MoveCobra_case_S:
 		loadn r6, #'s'		; Movimento para baixo
 		cmp r5, r6			; Checa se o movimento e para baixo
-		jne MoveCobra_case_J
+		jne MoveCobra_case_A
 		
 		loadn r6, #40		; Para descer na tela, soma-se 40 na posicao
 		add r7, r7, r6		; Guarda em r7 a nova posicao da cabeca
 		jmp MoveCobraFim
 	
-	MoveCobra_case_J:
+	MoveCobra_case_A:
 		loadn r6, #'a'		; Movimento para esquerda
 		cmp r5, r6			; Checa se o movimento e para esquerda
-		jne MoveCobra_case_L
+		jne MoveCobra_case_D
 		
 		loadn r6, #1		; Para virar a esquerda na tela, subtrai-se 1 na posicao
 		sub r7, r7, r6		; Guarda em r7 a nova posicao da cabeca
 		jmp MoveCobraFim
 
-	MoveCobra_case_L:	; Se chegou ate aqui eh porque com certeza eh esse caso
+	MoveCobra_case_D:	; Se chegou ate aqui eh porque com certeza eh esse caso
 		loadn r6, #1		; Para virar a direita na tela, soma-se 1 na posicao
 		add r7, r7, r6		; Guarda em r7 a nova posicao da cabeca
 	
