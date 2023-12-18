@@ -1243,37 +1243,45 @@ IniciaVariaveis:
 	add r1, r3, r1				; r1 passa a guardar o valor de r3 deslocado em 567, posicao esta do rabo no mapa
 	store PosicaoRabo, r1		; Inicia variavel com a posicao da cauda
 	
-	loadn r4, #369				; Cabeca comeca na posicao 569 da tela
-	add r4, r3, r4				; r0 passa a guardar o valor de r3 deslocado em 569, posicao esta da cabeca no mapa
-	store PosInicioObst, r4		; Inicia variavel com a posicao da cabeca
+	loadn r4, #369				; Obstaculo comeca na posicao 369 da tela
+	add r4, r3, r4				; r4 passa a guardar o valor de r3 deslocado em 369
+	store PosInicioObst, r4		; Inicia variavel com a posicao inicial do obstaculo
 	
-	loadn r5, #367				; Rabo comeca na posicao 567 da tela
-	add r5, r3, r5				; r1 passa a guardar o valor de r3 deslocado em 567, posicao esta do rabo no mapa
-	store PosFimObst, r5		; Inicia variavel com a posicao da cauda
+	loadn r5, #367				; Obstaculo termina na posicao 367 da tela
+	add r5, r3, r5				; r5 passa a guardar o valor de r3 deslocado em 367
+	store PosFimObst, r5		; Inicia variavel com a posicao final do obstaculo
 	
-	loadn r4, #469				; Cabeca comeca na posicao 569 da tela
-	add r4, r3, r4				; r0 passa a guardar o valor de r3 deslocado em 569, posicao esta da cabeca no mapa
-	store PosInicioObst, r4		; Inicia variavel com a posicao da cabeca
+	loadn r4, #469				; Obstaculo comeca na posicao 469 da tela
+	add r4, r3, r4				; r4 passa a guardar o valor de r3 deslocado em 469
+	store PosInicioObst, r4		; Inicia variavel com a posicao inicial do obstaculo
 	
-	loadn r5, #464				; Rabo comeca na posicao 567 da tela
-	add r5, r3, r5				; r1 passa a guardar o valor de r3 deslocado em 567, posicao esta do rabo no mapa
-	store PosFimObst, r5		; Inicia variavel com a posicao da cauda
+	loadn r5, #464				; Obstaculo termina na posicao 464 da tela
+	add r5, r3, r5				; r5 passa a guardar o valor de r3 deslocado em 464
+	store PosFimObst, r5		; Inicia variavel com a posicao final do obstaculo
 	
-	loadn r4, #769				; Cabeca comeca na posicao 569 da tela
-	add r4, r3, r4				; r0 passa a guardar o valor de r3 deslocado em 569, posicao esta da cabeca no mapa
-	store PosInicioObst, r4		; Inicia variavel com a posicao da cabeca
+	loadn r4, #769				; Obstaculo comeca na posicao 769 da tela
+	add r4, r3, r4				; r4 passa a guardar o valor de r3 deslocado em 769
+	store PosInicioObst, r4		; Inicia variavel com a posicao inicial do obstaculo
 	
-	loadn r5, #767				; Rabo comeca na posicao 567 da tela
-	add r5, r3, r5				; r1 passa a guardar o valor de r3 deslocado em 567, posicao esta do rabo no mapa
-	store PosFimObst, r5		; Inicia variavel com a posicao da cauda
+	loadn r5, #767				; Obstaculo termina na posicao 767 da tela
+	add r5, r3, r5				; r5 passa a guardar o valor de r3 deslocado em 767
+	store PosFimObst, r5		; Inicia variavel com a posicao final do obstaculo
 	
-	loadn r4, #869				; Cabeca comeca na posicao 569 da tela
-	add r4, r3, r4				; r0 passa a guardar o valor de r3 deslocado em 569, posicao esta da cabeca no mapa
-	store PosInicioObst, r4		; Inicia variavel com a posicao da cabeca
+	loadn r4, #869				; Obstaculo comeca na posicao 869 da tela
+	add r4, r3, r4				; r4 passa a guardar o valor de r3 deslocado em 869
+	store PosInicioObst, r4		; Inicia variavel com a posicao inicial do obstaculo
 	
-	loadn r5, #867				; Rabo comeca na posicao 567 da tela
-	add r5, r3, r5				; r1 passa a guardar o valor de r3 deslocado em 567, posicao esta do rabo no mapa
-	store PosFimObst, r5		; Inicia variavel com a posicao da cauda
+	loadn r5, #865				; Obstaculo termina na posicao 867 da tela
+	add r5, r3, r5				; r5 passa a guardar o valor de r3 deslocado em 867
+	store PosFimObst, r5		; Inicia variavel com a posicao final do obstaculo
+	
+	loadn r4, #139				; Obstaculo comeca na posicao 869 da tela
+	add r4, r3, r4				; r4 passa a guardar o valor de r3 deslocado em 869
+	store PosInicioObst, r4		; Inicia variavel com a posicao inicial do obstaculo
+	
+	loadn r5, #137				; Obstaculo termina na posicao 867 da tela
+	add r5, r3, r5				; r5 passa a guardar o valor de r3 deslocado em 867
+	store PosFimObst, r5		; Inicia variavel com a posicao final do obstaculo
 	
 	rts
 	
@@ -1327,96 +1335,120 @@ IniciaMapa:
 	
 	
 	
-	load r0, CaracterDoObst	; Carrega o caracter da cobra com a cor a ser impressa
-	loadn r1, #464				; Posicao do rabo
-	loadn r2, #MapaDoJogo		; Carrega posicao inicial do mapa
-	loadn r3, #'d'				; Direcao que a cobra comeca
-	add r2, r1, r2				; Desloca posicao inicial do mapa para o rabo
+	load r0, CaracterDoObst	    ; Carrega o caracter do obstaculo com a cor a ser impressa
+	loadn r1, #464				
+	loadn r2, #MapaDoJogo		
+	add r2, r1, r2				
 	
-	outchar r0, r1				; Imprime rabo na posicao 367
-	storei r2, r3				; Guarda na posicao 367 do mapa que a cobra segue para Direita
+	outchar r0, r1				
+	storei r2, r3				
 	inc r1
 	inc r2
 	
-	outchar r0, r1				; Imprime rabo na posicao 367
-	storei r2, r3				; Guarda na posicao 367 do mapa que a cobra segue para Direita
+	outchar r0, r1				; Imprime obstaculo na posicao 464
+	storei r2, r3				
 	inc r1
 	inc r2
 	
-	outchar r0, r1				; Imprime rabo na posicao 367
-	storei r2, r3				; Guarda na posicao 367 do mapa que a cobra segue para Direita
+	outchar r0, r1				; Imprime rabo na posicao 465
+	storei r2, r3				
 	inc r1
 	inc r2
 	
-	outchar r0, r1				; Imprime rabo na posicao 367
-	storei r2, r3				; Guarda na posicao 367 do mapa que a cobra segue para Direita
+	outchar r0, r1				; Imprime rabo na posicao 466
+	storei r2, r3				
 	inc r1
 	inc r2
 	
-	outchar r0, r1				; Imprime corpo na posicao 368
-	storei r2, r3				; Guarda na posicao 368 do mapa que a cobra segue para Direita
+	outchar r0, r1				; Imprime corpo na posicao 467
+	storei r2, r3				
 	inc r1
 	inc r2
 	
-	outchar r0, r1				; imprime cabeca na posicao 369
-	storei r2, r3				; Guarda na posicao 369 do mapa que a cobra segue para Direita
+	outchar r0, r1				; imprime cabeca na posicao 468
+	storei r2, r3				
 	
-	load r0, CaracterDoObst	; Carrega o caracter da cobra com a cor a ser impressa
-	loadn r1, #867				; Posicao do rabo
-	loadn r2, #MapaDoJogo		; Carrega posicao inicial do mapa
-	loadn r3, #'d'				; Direcao que a cobra comeca
-	add r2, r1, r2				; Desloca posicao inicial do mapa para o rabo
+	load r0, CaracterDoObst	    
+	loadn r1, #865				
+	loadn r2, #MapaDoJogo		
+	add r2, r1, r2				
 	
-	outchar r0, r1				; Imprime rabo na posicao 367
-	storei r2, r3				; Guarda na posicao 367 do mapa que a cobra segue para Direita
+	outchar r0, r1				
+	storei r2, r3				
 	inc r1
 	inc r2
 	
-	outchar r0, r1				; Imprime corpo na posicao 368
-	storei r2, r3				; Guarda na posicao 368 do mapa que a cobra segue para Direita
+	outchar r0, r1				
+	storei r2, r3				
 	inc r1
 	inc r2
 	
-	outchar r0, r1				; imprime cabeca na posicao 369
-	storei r2, r3				; Guarda na posicao 369 do mapa que a cobra segue para Direita
-	
-	load r0, CaracterDoObst	; Carrega o caracter da cobra com a cor a ser impressa
-	loadn r1, #767				; Posicao do rabo
-	loadn r2, #MapaDoJogo		; Carrega posicao inicial do mapa
-	loadn r3, #'d'				; Direcao que a cobra comeca
-	add r2, r1, r2				; Desloca posicao inicial do mapa para o rabo
-	
-	outchar r0, r1				; Imprime rabo na posicao 367
-	storei r2, r3				; Guarda na posicao 367 do mapa que a cobra segue para Direita
+	outchar r0, r1				
+	storei r2, r3				
 	inc r1
 	inc r2
 	
-	outchar r0, r1				; Imprime corpo na posicao 368
-	storei r2, r3				; Guarda na posicao 368 do mapa que a cobra segue para Direita
+	outchar r0, r1				
+	storei r2, r3				
 	inc r1
 	inc r2
 	
-	outchar r0, r1				; imprime cabeca na posicao 369
-	storei r2, r3				; Guarda na posicao 369 do mapa que a cobra segue para Direita
+	outchar r0, r1				
+	storei r2, r3				
 	
-	load r0, CaracterDoObst	; Carrega o caracter da cobra com a cor a ser impressa
-	loadn r1, #367				; Posicao do rabo
-	loadn r2, #MapaDoJogo		; Carrega posicao inicial do mapa
-	loadn r3, #'d'				; Direcao que a cobra comeca
-	add r2, r1, r2				; Desloca posicao inicial do mapa para o rabo
+	load r0, CaracterDoObst	    
+	loadn r1, #767				
+	loadn r2, #MapaDoJogo		
+	add r2, r1, r2				
 	
-	outchar r0, r1				; Imprime rabo na posicao 367
-	storei r2, r3				; Guarda na posicao 367 do mapa que a cobra segue para Direita
+	outchar r0, r1				
+	storei r2, r3				
 	inc r1
 	inc r2
 	
-	outchar r0, r1				; Imprime corpo na posicao 368
-	storei r2, r3				; Guarda na posicao 368 do mapa que a cobra segue para Direita
+	outchar r0, r1				
+	storei r2, r3				
 	inc r1
 	inc r2
 	
-	outchar r0, r1				; imprime cabeca na posicao 369
-	storei r2, r3				; Guarda na posicao 369 do mapa que a cobra segue para Direita
+	outchar r0, r1				
+	storei r2, r3				
+	
+	load r0, CaracterDoObst	    
+	loadn r1, #367				
+	loadn r2, #MapaDoJogo		
+	add r2, r1, r2				
+	
+	outchar r0, r1				
+	storei r2, r3				
+	inc r1
+	inc r2
+	
+	outchar r0, r1				
+	storei r2, r3				
+	inc r1
+	inc r2
+	
+	outchar r0, r1				
+	storei r2, r3	
+	
+	load r0, CaracterDoObst	    
+	loadn r1, #137				
+	loadn r2, #MapaDoJogo		
+	add r2, r1, r2				
+	
+	outchar r0, r1				
+	storei r2, r3				
+	inc r1
+	inc r2
+	
+	outchar r0, r1				
+	storei r2, r3				
+	inc r1
+	inc r2
+	
+	outchar r0, r1				
+	storei r2, r3				
 	
 	pop r4
 	pop r3
@@ -1462,7 +1494,7 @@ LeTeclado:
 	push r7
 	
 	loadn r5, #255	; Valor se nao apertar tecla
-	loadn r7, #200	; Segundo delay
+	loadn r7, #150	; Segundo delay
 	
 	LeTecladoLoop_1:
 		loadn r6, #1000	; Primeiro delay
@@ -1893,7 +1925,7 @@ TelaPosColisao08: string "                                        "
 TelaPosColisao09: string "                                        "
 TelaPosColisao10: string "                                        "
 TelaPosColisao11: string "                                        "
-TelaPosColisao12: string "          AAAAAH, VOCE COLIDIU          "
+TelaPosColisao12: string "               MORREU!                  "
 TelaPosColisao13: string "                                        "
 TelaPosColisao14: string "            VOCE COLETOU:               "
 TelaPosColisao15: string "                                        "
