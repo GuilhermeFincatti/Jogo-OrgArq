@@ -1,15 +1,9 @@
-; Este eh um jogo feito em assembly do processador do Simoes para a materia de Organizacao de Computadores
-;
-; O jogo foi feito por Orlando Pasqual Filho. Caso queira entrar em contato, meu e-mail eh or.pasqual@gmail.com
-
 jmp main
 
 ;---- Declaracao de Variaveis Globais -------------------------------------------------------
-; Sao todas aquelas que precisam ser vistas por mais de uma funcao: Evita a passagem de parametros.
-; As variaveis locais de cada funcao serao alocadas nos Registradores internos (r0 a r7)
 
-Pontuacao: var #1		; Pontuacao inicial, mostrada ao fim do jogo
-Tecla: var #1			; Guarda valor de tecla quando precinada
+Pontuacao: var #1		; Pontuacao inicial
+Tecla: var #1			; Guarda valor de tecla quando pressionada
 PosicaoCabeca: var #1	; Guarda posicao atual da cabeca
 PosicaoRabo: var #1		; Guarda posicao atual do rabo
 PosVetorRandom: var #1	; Guarda o indice do vetor na posicao atual
@@ -1215,7 +1209,7 @@ IniciaVariaveis:
 	loadn r0, #'d'
 	store Tecla, r0				; Comeca na direcao para Direita
 	
-	loadn r0, #'o'
+	loadn r0, #'='
 	loadn r1, #3328
 	add r0, r1, r0				; Adiciona cor ao caracter da cobra
 	store CaracterDaCobra, r0	; Armazena o caracter da cobra
@@ -1225,7 +1219,7 @@ IniciaVariaveis:
 	add r0, r1, r0				; Adiciona cor ao caracter da cobra
 	store CaracterDoObst, r0	; Armazena o caracter da cobra
 	
-	loadn r0, #'c'
+	loadn r0, #'@'
 	loadn r1, #2304
 	add r0, r1, r0				; Adiciona cor ao caracter da cobra
 	store CaracterDaMaca, r0	; Armazena o caracter da maca
@@ -1243,46 +1237,6 @@ IniciaVariaveis:
 	add r1, r3, r1				; r1 passa a guardar o valor de r3 deslocado em 567, posicao esta do rabo no mapa
 	store PosicaoRabo, r1		; Inicia variavel com a posicao da cauda
 	
-	loadn r4, #369				; Obstaculo comeca na posicao 369 da tela
-	add r4, r3, r4				; r4 passa a guardar o valor de r3 deslocado em 369
-	store PosInicioObst, r4		; Inicia variavel com a posicao inicial do obstaculo
-	
-	loadn r5, #367				; Obstaculo termina na posicao 367 da tela
-	add r5, r3, r5				; r5 passa a guardar o valor de r3 deslocado em 367
-	store PosFimObst, r5		; Inicia variavel com a posicao final do obstaculo
-	
-	loadn r4, #469				; Obstaculo comeca na posicao 469 da tela
-	add r4, r3, r4				; r4 passa a guardar o valor de r3 deslocado em 469
-	store PosInicioObst, r4		; Inicia variavel com a posicao inicial do obstaculo
-	
-	loadn r5, #464				; Obstaculo termina na posicao 464 da tela
-	add r5, r3, r5				; r5 passa a guardar o valor de r3 deslocado em 464
-	store PosFimObst, r5		; Inicia variavel com a posicao final do obstaculo
-	
-	loadn r4, #769				; Obstaculo comeca na posicao 769 da tela
-	add r4, r3, r4				; r4 passa a guardar o valor de r3 deslocado em 769
-	store PosInicioObst, r4		; Inicia variavel com a posicao inicial do obstaculo
-	
-	loadn r5, #767				; Obstaculo termina na posicao 767 da tela
-	add r5, r3, r5				; r5 passa a guardar o valor de r3 deslocado em 767
-	store PosFimObst, r5		; Inicia variavel com a posicao final do obstaculo
-	
-	loadn r4, #869				; Obstaculo comeca na posicao 869 da tela
-	add r4, r3, r4				; r4 passa a guardar o valor de r3 deslocado em 869
-	store PosInicioObst, r4		; Inicia variavel com a posicao inicial do obstaculo
-	
-	loadn r5, #865				; Obstaculo termina na posicao 867 da tela
-	add r5, r3, r5				; r5 passa a guardar o valor de r3 deslocado em 867
-	store PosFimObst, r5		; Inicia variavel com a posicao final do obstaculo
-	
-	loadn r4, #139				; Obstaculo comeca na posicao 869 da tela
-	add r4, r3, r4				; r4 passa a guardar o valor de r3 deslocado em 869
-	store PosInicioObst, r4		; Inicia variavel com a posicao inicial do obstaculo
-	
-	loadn r5, #137				; Obstaculo termina na posicao 867 da tela
-	add r5, r3, r5				; r5 passa a guardar o valor de r3 deslocado em 867
-	store PosFimObst, r5		; Inicia variavel com a posicao final do obstaculo
-	
 	rts
 	
 IniciaMapa:
@@ -1298,6 +1252,8 @@ IniciaMapa:
 	loadn r2, #41				; Incremento da Tela
 	loadn r3, #40				; Incremento do Mapa
 	loadn r4, #30				; Numero de iteracoes
+	loadn r5, #39               ; Constante para obstaculos na diagonal
+	loadn r6, #40               ; Constante para obstaculos verticais
 	
 	IniciaMapaLoop:
 		call CopiaLinha
@@ -1334,121 +1290,194 @@ IniciaMapa:
 	storei r2, r3				; Guarda na posicao 569 do mapa que a cobra segue para Direita
 	
 	
+	load r0, CaracterDoObst	    ; Carrega o caracter do obstaculo com a cor a ser impressa
+	loadn r1, #406				
+	loadn r2, #MapaDoJogo		
+	add r2, r1, r2				
+	
+	loadn r7, #4
+	loopObstaculoH0:
+		outchar r0, r1				
+		storei r2, r3
+		inc r1
+		inc r2
+		dec r7
+		jnz loopObstaculoH0		
+		
+	load r0, CaracterDoObst	    ; Carrega o caracter do obstaculo com a cor a ser impressa
+	loadn r1, #921				
+	loadn r2, #MapaDoJogo		
+	add r2, r1, r2				
+	
+	loadn r7, #15
+	loopObstaculoH1:
+		outchar r0, r1				
+		storei r2, r3
+		inc r1
+		inc r2
+		dec r7
+		jnz loopObstaculoH1	
+		
+	load r0, CaracterDoObst	    ; Carrega o caracter do obstaculo com a cor a ser impressa
+	loadn r1, #942				
+	loadn r2, #MapaDoJogo		
+	add r2, r1, r2				
+	
+	loadn r7, #6
+	loopObstaculoH2:
+		outchar r0, r1				
+		storei r2, r3
+		inc r1
+		inc r2
+		dec r7
+		jnz loopObstaculoH2	
 	
 	load r0, CaracterDoObst	    ; Carrega o caracter do obstaculo com a cor a ser impressa
-	loadn r1, #464				
+	loadn r1, #271				
 	loadn r2, #MapaDoJogo		
 	add r2, r1, r2				
 	
-	outchar r0, r1				
-	storei r2, r3				
-	inc r1
-	inc r2
+	loadn r7, #8
+	loopObstaculoH3:
+		outchar r0, r1				
+		storei r2, r3
+		inc r1
+		inc r2
+		dec r7
+		jnz loopObstaculoH3	
+		
+	load r0, CaracterDoObst	    ; Carrega o caracter do obstaculo com a cor a ser impressa
+	loadn r1, #216				
+	loadn r2, #MapaDoJogo		
+	add r2, r1, r2				
 	
-	outchar r0, r1				; Imprime obstaculo na posicao 464
-	storei r2, r3				
-	inc r1
-	inc r2
+	loadn r7, #3
+	loopObstaculoH4:
+		outchar r0, r1				
+		storei r2, r3
+		inc r1
+		inc r2
+		dec r7
+		jnz loopObstaculoH4	
+		
+	load r0, CaracterDoObst	    ; Carrega o caracter do obstaculo com a cor a ser impressa
+	loadn r1, #256				
+	loadn r2, #MapaDoJogo		
+	add r2, r1, r2				
 	
-	outchar r0, r1				; Imprime rabo na posicao 465
-	storei r2, r3				
-	inc r1
-	inc r2
+	loadn r7, #3
+	loopObstaculoH5:
+		outchar r0, r1				
+		storei r2, r3
+		inc r1
+		inc r2
+		dec r7
+		jnz loopObstaculoH5
+		
+	load r0, CaracterDoObst	    ; Carrega o caracter do obstaculo com a cor a ser impressa
+	loadn r1, #656				
+	loadn r2, #MapaDoJogo		
+	add r2, r1, r2				
 	
-	outchar r0, r1				; Imprime rabo na posicao 466
-	storei r2, r3				
-	inc r1
-	inc r2
-	
-	outchar r0, r1				; Imprime corpo na posicao 467
-	storei r2, r3				
-	inc r1
-	inc r2
-	
-	outchar r0, r1				; imprime cabeca na posicao 468
-	storei r2, r3				
+	loadn r7, #3
+	loopObstaculoH6:
+		outchar r0, r1				
+		storei r2, r3
+		inc r1
+		inc r2
+		dec r7
+		jnz loopObstaculoH6
+		
 	
 	load r0, CaracterDoObst	    
-	loadn r1, #865				
+	loadn r1, #446				
 	loadn r2, #MapaDoJogo		
 	add r2, r1, r2				
 	
-	outchar r0, r1				
-	storei r2, r3				
-	inc r1
-	inc r2
 	
-	outchar r0, r1				
-	storei r2, r3				
-	inc r1
-	inc r2
-	
-	outchar r0, r1				
-	storei r2, r3				
-	inc r1
-	inc r2
-	
-	outchar r0, r1				
-	storei r2, r3				
-	inc r1
-	inc r2
-	
-	outchar r0, r1				
-	storei r2, r3				
-	
+	loadn r7, #4
+	loopObstaculoV0:
+		outchar r0, r1				
+		storei r2, r3
+		add r1, r6, r1
+		add r2, r6, r2
+		dec r7
+		jnz loopObstaculoV0	
+		
 	load r0, CaracterDoObst	    
-	loadn r1, #767				
+	loadn r1, #50				
 	loadn r2, #MapaDoJogo		
 	add r2, r1, r2				
 	
-	outchar r0, r1				
-	storei r2, r3				
-	inc r1
-	inc r2
 	
-	outchar r0, r1				
-	storei r2, r3				
-	inc r1
-	inc r2
-	
-	outchar r0, r1				
-	storei r2, r3				
-	
+	loadn r7, #10
+	loopObstaculoV1:
+		outchar r0, r1				
+		storei r2, r3
+		add r1, r6, r1
+		add r2, r6, r2
+		dec r7
+		jnz loopObstaculoV1		
+		
 	load r0, CaracterDoObst	    
-	loadn r1, #367				
+	loadn r1, #655				
 	loadn r2, #MapaDoJogo		
 	add r2, r1, r2				
 	
-	outchar r0, r1				
-	storei r2, r3				
-	inc r1
-	inc r2
 	
-	outchar r0, r1				
-	storei r2, r3				
-	inc r1
-	inc r2
-	
-	outchar r0, r1				
-	storei r2, r3	
-	
+	loadn r7, #7
+	loopObstaculoV2:
+		outchar r0, r1				
+		storei r2, r3
+		add r1, r6, r1
+		add r2, r6, r2
+		dec r7
+		jnz loopObstaculoV2	
+		
 	load r0, CaracterDoObst	    
-	loadn r1, #137				
+	loadn r1, #987			
 	loadn r2, #MapaDoJogo		
 	add r2, r1, r2				
 	
-	outchar r0, r1				
-	storei r2, r3				
-	inc r1
-	inc r2
 	
-	outchar r0, r1				
-	storei r2, r3				
-	inc r1
-	inc r2
+	loadn r7, #5
+	loopObstaculoV3:
+		outchar r0, r1				
+		storei r2, r3
+		add r1, r6, r1
+		add r2, r6, r2
+		dec r7
+		jnz loopObstaculoV3	
+		
+	load r0, CaracterDoObst	    
+	loadn r1, #752			
+	loadn r2, #MapaDoJogo		
+	add r2, r1, r2				
 	
-	outchar r0, r1				
-	storei r2, r3				
+	
+	loadn r7, #5
+	loopObstaculoD0:
+		outchar r0, r1				
+		storei r2, r3
+		add r1, r5, r1
+		add r2, r5, r2
+		dec r7
+		jnz loopObstaculoD0	
+		
+	load r0, CaracterDoObst	    
+	loadn r1, #270			
+	loadn r2, #MapaDoJogo		
+	add r2, r1, r2				
+	
+	
+	loadn r7, #5
+	loopObstaculoD1:
+		outchar r0, r1				
+		storei r2, r3
+		add r1, r5, r1
+		add r2, r5, r2
+		dec r7
+		jnz loopObstaculoD1	
 	
 	pop r4
 	pop r3
