@@ -4,11 +4,11 @@
 - **Vídeo Apresentação:** https://youtu.be/6q_eHvUp6cs
 
 ## Integrantes
-- Giovanni dos Santos, 13695341
-- Guilherme Augusto Fincatti da Silva, 13676986
-- Marcelo Eduardo Reginato, 13676965
-- Marco Antonio Gaspar Garcia, 11833581
-- Pedro Guilherme de Barros Zenatte, 13676919
+- Giovanni dos Santos
+- Guilherme Augusto Fincatti da Silva
+- Marcelo Eduardo Reginato
+- Marco Antonio Gaspar Garcia
+- Pedro Guilherme de Barros Zenatte
  
 ## Descrição
 O projeto consiste na implementação em `Assembly` do reconhecido jogo `Snake`, conhecido no Brasil como `Jogo da Cobrinha`. Adicionamos alguns obstáculos no mapa para diferenciar do jogo original, e dificultar a vida do jogador. 
